@@ -1,7 +1,5 @@
 package core;
 
-import core.Answer;
-
 import java.util.List;
 
 public class Answers {
@@ -28,7 +26,7 @@ public class Answers {
         totalTime = 0;
         for (Answer answer : answers
              ) {
-            totalTime += answer.getCostTime();
+            totalTime = totalTime > answer.getCostTime() ? totalTime : answer.getCostTime();
         }
         return totalTime;
     }

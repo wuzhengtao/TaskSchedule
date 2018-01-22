@@ -12,6 +12,7 @@ public class Task {
     private List<Task> fatherTask;
     private Resource[] res;
 
+    private List<Task> childTask = new ArrayList<>();
     private int status = 0;
     private long firstStartTime = 0;
     private long finishTime = 0;
@@ -123,5 +124,17 @@ public class Task {
 
     public void setFinishTime(long finishTime) {
         this.finishTime = finishTime;
+    }
+
+    public List<Task> getChildTask() {
+        return childTask;
+    }
+
+    public void setChildTask(List<Task> childTask) {
+        this.childTask = childTask;
+    }
+
+    public void addChildTask(Task task) {
+        this.childTask.add(task);
     }
 }

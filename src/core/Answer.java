@@ -6,7 +6,6 @@ import java.util.List;
 public class Answer {
     private Resource res;
     private List<Task> taskQueue;
-    private long costTime;
 
     public Answer(Resource res, List<Task> taskQueue) {
         this.res = res;
@@ -39,10 +38,11 @@ public class Answer {
     }
 
     public long getCostTime() {
-        costTime = 0;
-        for (Task task : taskQueue) {
-            costTime += task.getTime();
-        }
-        return costTime;
+//        long costTime = 0;
+//        for (Task task : taskQueue) {
+//            costTime += task.getTime();
+//        }
+//        return costTime;
+        return res.getFinalTime();
     }
 }

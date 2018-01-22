@@ -44,4 +44,12 @@ public class Resource {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public long getFinalTime() {
+        return finalTime;
+    }
+
+    public void setFinalTime(long finalTime) {
+        this.finalTime = finalTime;
+    }
 }
