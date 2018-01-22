@@ -3,19 +3,28 @@ package core;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 一个任务主要包括任务名称，任务时间，父任务集，子任务集，所需资源集
+ *
+ * @author wuzht
+ * @version 2018.01.22
+ * @date 2018.01.22
+ *
+ */
+
 public class Task {
 
-    private int id;
-    private String name;
-    private long time;
-    private String description;
-    private List<Task> fatherTask;
-    private Resource[] res;
+    private int id;//任务id
+    private String name;//任务名称
+    private long time;//任务执行时间
+    private String description;//任务描述
+    private List<Task> fatherTask;//父任务
+    private Resource[] res;//所需资源集
 
-    private List<Task> childTask = new ArrayList<>();
-    private int status = 0;
-    private long firstStartTime = 0;
-    private long finishTime = 0;
+    private List<Task> childTask = new ArrayList<>();//子任务
+    private int status = 0;//状态
+    private long firstStartTime = 0;//最早开始时间
+    private long finishTime = 0;//完成时间
 
     public Task(int id, String name, long time, String description, List<Task> fatherTask, Resource[] res) {
         this.id = id;
@@ -128,10 +137,6 @@ public class Task {
 
     public List<Task> getChildTask() {
         return childTask;
-    }
-
-    public void setChildTask(List<Task> childTask) {
-        this.childTask = childTask;
     }
 
     public void addChildTask(Task task) {

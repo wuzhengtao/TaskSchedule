@@ -3,14 +3,18 @@ package core;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Answer {
-    private Resource res;
-    private List<Task> taskQueue;
+/**
+ * 结果类，每一种资源的调度结果
+ *
+ * @author wuzht
+ * @version 2018.01.22
+ * @date 2018.01.22
+ *
+ */
 
-    public Answer(Resource res, List<Task> taskQueue) {
-        this.res = res;
-        this.taskQueue = taskQueue;
-    }
+public class Answer {
+    private Resource res;//资源
+    private List<Task> taskQueue;//任务队列
 
     public Answer(Resource res) {
         this.res = res;
@@ -21,28 +25,18 @@ public class Answer {
         return res;
     }
 
-    public void setRes(Resource res) {
-        this.res = res;
-    }
-
     public List<Task> getTaskQueue() {
         return taskQueue;
-    }
-
-    public void setTaskQueue(List<Task> taskQueue) {
-        this.taskQueue = taskQueue;
     }
 
     public void addTask(Task task) {
         this.taskQueue.add(task);
     }
 
+    /*
+        一种资源消耗的时间
+     */
     public long getCostTime() {
-//        long costTime = 0;
-//        for (Task task : taskQueue) {
-//            costTime += task.getTime();
-//        }
-//        return costTime;
         return res.getFinalTime();
     }
 }

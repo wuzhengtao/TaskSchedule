@@ -42,19 +42,5 @@ public class Main {
 
         mathUtil.printAnswers(answers);
 
-
-//        boolean [][] test;
-//        test = mathUtil.getTaskTable(tasks);
-
-        //mathUtil.printArray(test);
-//        for (int i = 0; i < test.length;  ++i) {
-//            boolean flag = false;
-//            for (int j = 0; j < test.length; ++j) {
-//                flag |= test[j][i];
-//            }
-//            if (!flag) //tasks.get(i).setStatus(1);//状态1为激活状态
-//            System.out.println(tasks.get(i).getName());
-//        }
-
     }
 }

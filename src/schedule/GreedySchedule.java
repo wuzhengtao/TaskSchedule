@@ -8,10 +8,22 @@ import core.Task;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 贪心算法做任务调度
+ *
+ * @author wuzht
+ * @version 2018.01.22
+ * @date 2018.01.22
+ *
+ */
+
 public class GreedySchedule implements ISchedule{
-    private List<Task> taskPool = new ArrayList<>();
-    private List<Answer> answerList = new ArrayList<>();
+    private List<Task> taskPool = new ArrayList<>();//任务池
+    private List<Answer> answerList = new ArrayList<>();//结果列表
     private Answers answers;
+    /*
+        贪心算法调度，短作业优先
+     */
     @Override
     public Answers taskSchedule(List<Task> tasks, Resource[] res) {
         init(tasks);
@@ -59,6 +71,9 @@ public class GreedySchedule implements ISchedule{
         return answers;
     }
 
+    /*
+        将调度完成的任务更新状态以及完成时间
+     */
     private void updateTask2finish(Task task, Answer answer) {
         task.setStatus(2);
         answer.addTask(task);
@@ -68,6 +83,9 @@ public class GreedySchedule implements ISchedule{
         updateChildTask(task);
     }
 
+    /*
+        更新子任务，检查所有父任务已调度完成，则更新成激活状态
+     */
     private void updateChildTask(Task task) {
         for (Task childTask : task.getChildTask()) {
             boolean flag = true;
@@ -87,6 +105,9 @@ public class GreedySchedule implements ISchedule{
         }
     }
 
+    /*
+        任务的初始化，没有父任务的任务将率先加入到任务池
+     */
     private void init (List<Task> tasks) {
         //对任务初始化，没有父任务的任务直接激活并放入任务池
         for (Task task : tasks) {
@@ -98,6 +119,9 @@ public class GreedySchedule implements ISchedule{
         }
     }
 
+    /*
+        将已激活任务加入到任务池，等待调度。
+     */
     private void add2Pool(Task task) {
         //将任务按顺序放入任务池
         if (taskPool.size() == 0) {

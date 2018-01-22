@@ -1,10 +1,19 @@
 package core;
 
+/**
+ * 资源类
+ *
+ * @author wuzht
+ * @version 2018.01.22
+ * @date 2018.01.22
+ *
+ */
+
 public class Resource {
-    private int id;
-    private String name;
-    private long finalTime;
-    private String description;
+    private int id;//资源id
+    private String name;//资源名称
+    private long finalTime;//资源完成时间
+    private String description;//资源描述
 
     public Resource(int id, String name, String description) {
         this.id = id;
@@ -27,14 +36,6 @@ public class Resource {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public long getUsed() {
-        return finalTime;
-    }
-
-    public void setUsed(long used) {
-        finalTime = used;
     }
 
     public String getDescription() {
