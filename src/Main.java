@@ -1,7 +1,7 @@
-import core.Answers;
+import core.AnswerMap;
 import core.Resource;
 import core.Task;
-import schedule.GreedySchedule;
+import schedule.GreedyMapSchedule;
 import schedule.ISchedule;
 import util.MathUtil;
 
@@ -37,10 +37,11 @@ public class Main {
 
         tasks.get(6).addFatherTask(tasks.get(5));
         tasks.get(5).addChildTask(tasks.get(6));
-        ISchedule schedule = new GreedySchedule();
-        Answers answers = schedule.taskSchedule(tasks, res);
+        ISchedule schedule = new GreedyMapSchedule();
+        //Answers answers = schedule.taskSchedule(tasks, res);
+        AnswerMap answers = schedule.taskSchedule(tasks, res);
 
-        mathUtil.printAnswers(answers);
+        mathUtil.printAnswerMap(answers);
 
     }
 }

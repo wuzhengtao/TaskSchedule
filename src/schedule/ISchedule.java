@@ -13,5 +13,5 @@ import core.*;
  */
 
 public interface ISchedule {
-    Answers taskSchedule(List<Task> tasks, Resource[] res);
+    AnswerMap taskSchedule(List<Task> tasks, Resource[] res);
 }

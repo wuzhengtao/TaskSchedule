@@ -1,6 +1,7 @@
 package util;
 
 import core.Answer;
+import core.AnswerMap;
 import core.Answers;
 import core.Task;
 
@@ -15,22 +16,22 @@ import core.Task;
 
 public class MathUtil {
 
-    /*
-        打印出结果集
+    /**
+     *  打印出结果集
      */
-    public void printAnswers (Answers answers) {
-        if (answers == null) {
-            System.out.println("Method is not finished");
-            return;
-        }
-        for (Answer answer : answers.getAnswer()) {
+
+    public void printAnswerMap(AnswerMap answers) {
+        long totaltime = 0;
+        for (Answer answer : answers.values()) {
             System.out.print(answer.getRes().getName() + ": ");
             for (Task task : answer.getTaskQueue()) {
                 System.out.print(task.getName() + " " + task.getTime() + ", ");
             }
+            totaltime = totaltime > answer.getCostTime() ? totaltime : answer.getCostTime();
             System.out.print("costTime : " + answer.getCostTime());
             System.out.println();
         }
-        System.out.println("Total Time is : " + answers.getTotalTime());
+
+        System.out.println("Total Time is : " + totaltime);
     }
 }

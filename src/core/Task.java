@@ -9,11 +9,9 @@ import java.util.List;
  * @author wuzht
  * @version 2018.01.22
  * @date 2018.01.22
- *
  */
 
 public class Task {
-
     private int id;//任务id
     private String name;//任务名称
     private long time;//任务执行时间

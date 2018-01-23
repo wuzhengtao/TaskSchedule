@@ -1,6 +1,8 @@
 package core;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 所有资源的调度结果
@@ -13,7 +15,8 @@ import java.util.List;
 
 public class Answers {
     private List<Answer> answers;//结果集
-    private long totalTime;//完成总时间
+
+    Map<Resource, Answer> answerMap= new HashMap<>();
 
     public Answers(List<Answer> answers) {
         this.answers = answers;
@@ -36,7 +39,7 @@ public class Answers {
      */
 
     public long getTotalTime() {
-        totalTime = 0;
+        long totalTime = 0;
         for (Answer answer : answers
              ) {
             totalTime = totalTime > answer.getCostTime() ? totalTime : answer.getCostTime();
