@@ -1,6 +1,8 @@
 package core;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 所有资源的调度结果
@@ -11,33 +13,32 @@ import java.util.List;
  *
  */
 
-public class Answers {
-    private List<Answer> answers;//结果集
-    private long totalTime;//完成总时间
-
-    public Answers(List<Answer> answers) {
-        this.answers = answers;
-    }
-
-    public List<Answer> getAnswer() {
-        return answers;
-    }
-
-    public void setAnswer(List<Answer> answers) {
-        this.answers = answers;
-    }
-
-    public void addAnswer(Answer answer) {
-        this.answers.add(answer);
-    }
+public class Answers extends HashMap<Resource,Answer> {
+//    private Map<Resource,Answer> answers;//结果集
+//
+//    public Answers(Map<Resource,Answer> answers) {
+//        this.answers = answers;
+//    }
+//
+//    public Map<Resource,Answer> getAnswer() {
+//        return answers;
+//    }
+//
+//    public void setAnswer(Map<Resource,Answer> answers) {
+//        this.answers = answers;
+//    }
+//
+//    public void addAnswer(Answer answer) {
+//        this.answers.put(answer.getRes(),answer);
+//    }
 
     /*
         总时间就是消耗最多时间的单个结果
      */
 
     public long getTotalTime() {
-        totalTime = 0;
-        for (Answer answer : answers
+        long totalTime = 0;
+        for (Answer answer : this.values()
              ) {
             totalTime = totalTime > answer.getCostTime() ? totalTime : answer.getCostTime();
         }

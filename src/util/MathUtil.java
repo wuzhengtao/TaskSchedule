@@ -23,7 +23,7 @@ public class MathUtil {
             System.out.println("Method is not finished");
             return;
         }
-        for (Answer answer : answers.getAnswer()) {
+        for (Answer answer : answers.values()) {
             System.out.print(answer.getRes().getName() + ": ");
             for (Task task : answer.getTaskQueue()) {
                 System.out.print(task.getName() + " " + task.getTime() + ", ");

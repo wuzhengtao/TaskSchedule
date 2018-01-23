@@ -6,7 +6,9 @@ import core.Resource;
 import core.Task;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 贪心算法做任务调度
@@ -14,13 +16,13 @@ import java.util.List;
  * @author wuzht
  * @version 2018.01.22
  * @date 2018.01.22
- *
  */
 
-public class GreedySchedule implements ISchedule{
+public class GreedySchedule implements ISchedule {
     private List<Task> taskPool = new ArrayList<>();//任务池
-    private List<Answer> answerList = new ArrayList<>();//结果列表
-    private Answers answers;
+    //    private Map<Resource, Answer> answers = new HashMap<>();//结果列表
+    private Answers answers = new Answers();
+
     /*
         贪心算法调度，短作业优先
      */
@@ -29,43 +31,28 @@ public class GreedySchedule implements ISchedule{
         init(tasks);
         //初始化Answers 和 Answer
         for (Resource resource : res) {
-            answerList.add(new Answer(resource));
+            answers.put(resource, new Answer(resource));
         }
-        answers = new Answers(answerList);
         while (!taskPool.isEmpty()) {
             //从任务池取出一个任务，并且判断，循环
             Task task4Schedule;
             int i = 0;//获取对应任务
-            int j = 0;//获取对应answer
             for (; i < taskPool.size(); ++i) {
                 //遍历Answers里的Answer，看看有没有符合条件的，如果有，就跳出循环，继续往下。
-                boolean flag = false;
-                List<Answer> tempAnswer = answers.getAnswer();
-                for (j = 0; j < tempAnswer.size(); ++j) {
-                    if (tempAnswer.get(j).getRes() == taskPool.get(i).getRes()[0]) {
-                        if (taskPool.get(i).getFirstStartTime() <= tempAnswer.get(j).getRes().getFinalTime()) {
-                            flag = true;
-                            break;
-                        }
-                    }
+                if (answers.get(taskPool.get(i).getRes()[0]).getRes().getFinalTime() >= taskPool.get(i).getFirstStartTime()) {
+                    break;
                 }
-                if (flag) break;
             }
+
             if (i == taskPool.size()) {
+                answers.get(taskPool.get(0).getRes()[0]).getRes().setFinalTime(taskPool.get(0).getFirstStartTime());
                 i = 0;
-                for (j = 0; j < answers.getAnswer().size(); ++j) {
-                    if (answers.getAnswer().get(j).getRes() == taskPool.get(i).getRes()[0]) {
-                        break;
-                    }
-                }
-                System.out.println(taskPool.get(i).getFirstStartTime());
-                answers.getAnswer().get(j).getRes().setFinalTime(taskPool.get(i).getFirstStartTime());
             }
             //取出任务，将任务从任务池中清除
             task4Schedule = taskPool.remove(i);//获取待分配任务
 
             //更新任务及资源
-            updateTask2finish(task4Schedule, answers.getAnswer().get(j));
+            updateTask2finish(task4Schedule, answers.get(task4Schedule.getRes()[0]));
         }
 
         return answers;
@@ -91,11 +78,11 @@ public class GreedySchedule implements ISchedule{
             boolean flag = true;
             long firstStartTime = 0;
             for (Task fatherTask : childTask.getFatherTask()) {
-                flag = flag & (fatherTask.getStatus() == 2);
+                flag = (fatherTask.getStatus() == 2);
                 firstStartTime =
                         firstStartTime > fatherTask.getFinishTime() ?
                                 firstStartTime : fatherTask.getFinishTime();
-                if (!flag)break;
+                if (!flag) break;
             }
             if (flag) {
                 childTask.setFirstStartTime(firstStartTime);
@@ -108,7 +95,7 @@ public class GreedySchedule implements ISchedule{
     /*
         任务的初始化，没有父任务的任务将率先加入到任务池
      */
-    private void init (List<Task> tasks) {
+    private void init(List<Task> tasks) {
         //对任务初始化，没有父任务的任务直接激活并放入任务池
         for (Task task : tasks) {
             if (task.getFatherTask().size() == 0) {

@@ -1,3 +1,4 @@
+import core.Answer;
 import core.Answers;
 import core.Resource;
 import core.Task;
@@ -38,9 +39,9 @@ public class Main {
         tasks.get(6).addFatherTask(tasks.get(5));
         tasks.get(5).addChildTask(tasks.get(6));
         ISchedule schedule = new GreedySchedule();
+
         Answers answers = schedule.taskSchedule(tasks, res);
 
         mathUtil.printAnswers(answers);
-
     }
 }
