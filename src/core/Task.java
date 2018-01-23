@@ -20,7 +20,7 @@ public class Task {
     private Resource[] res;//所需资源集
 
     private List<Task> childTask = new ArrayList<>();//子任务
-    private int status = 0;//状态
+    private TaskStatus status = TaskStatus.CREATED;//状态
     private long firstStartTime = 0;//最早开始时间
     private long finishTime = 0;//完成时间
 
@@ -109,11 +109,11 @@ public class Task {
         this.res = res;
     }
 
-    public int getStatus() {
+    public TaskStatus getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(TaskStatus status) {
         this.status = status;
     }
 

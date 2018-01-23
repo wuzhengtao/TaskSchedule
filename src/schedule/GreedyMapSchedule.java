@@ -36,7 +36,8 @@ public class GreedyMapSchedule implements ISchedule{
             }
             if (i == taskPool.size()) {
                 i = 0;
-                answerMap.get(taskPool.get(0).getRes()[0]).getRes().setFinalTime(taskPool.get(0).getFirstStartTime());
+                answerMap.get(taskPool.get(0).getRes()[0]).getRes()
+                        .setFinalTime(taskPool.get(0).getFirstStartTime());
             }
 
             task4Schedule = taskPool.remove(i);
@@ -53,7 +54,7 @@ public class GreedyMapSchedule implements ISchedule{
         //对任务初始化，没有父任务的任务直接激活并放入任务池
         for (Task task : tasks) {
             if (task.getFatherTask().size() == 0) {
-                task.setStatus(1);//状态1为激活状态
+                task.setStatus(TaskStatus.READY);//状态1为激活状态
                 add2Pool(task);
             }
 
@@ -87,7 +88,7 @@ public class GreedyMapSchedule implements ISchedule{
      *  将调度完成的任务更新状态以及完成时间
      */
     private void updateTask2finish(Task task, Answer answer) {
-        task.setStatus(2);
+        task.setStatus(TaskStatus.SCHEDULED);
         answer.addTask(task);
         long finishTime = answer.getCostTime();
         answer.getRes().setFinalTime(finishTime + task.getTime());
@@ -103,7 +104,7 @@ public class GreedyMapSchedule implements ISchedule{
             boolean flag = true;
             long firstStartTime = 0;
             for (Task fatherTask : childTask.getFatherTask()) {
-                flag = (fatherTask.getStatus() == 2);
+                flag = (fatherTask.getStatus() == TaskStatus.SCHEDULED);
                 firstStartTime =
                         firstStartTime > fatherTask.getFinishTime() ?
                                 firstStartTime : fatherTask.getFinishTime();
@@ -111,7 +112,7 @@ public class GreedyMapSchedule implements ISchedule{
             }
             if (flag) {
                 childTask.setFirstStartTime(firstStartTime);
-                childTask.setStatus(1);
+                childTask.setStatus(TaskStatus.READY);
                 add2Pool(childTask);
             }
         }
